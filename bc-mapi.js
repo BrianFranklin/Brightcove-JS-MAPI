@@ -33,24 +33,28 @@ var BCMAPI = new function () {
 	this.callback = "BCMAPI.flush";
 	this.url = "http://api.brightcove.com/services/library";
 	this.calls = [
-		{ "s":"find_all_videos", "o":false },
-		{ "s":"find_playlists_for_player_id", "o":"player_id" },
-		{ "s":"find_all_playlists", "o":false },
-		{ "s":"find_playlist_by_id", "o":"playlist_id" },
-		{ "s":"find_related_videos", "o":"video_id" },
-		{ "s":"find_video_by_id", "o":"video_id" },
-		{ "s":"find_videos_by_ids", "o":"video_ids" },
-		{ "s":"find_videos_by_tags", "o":"or_tags" },
-		{ "s":"find_video_by_reference_id", "o":"reference_id" },
-		{ "s":"find_video_by_reference_ids", "o":"reference_ids" },
-		{ "s":"find_videos_by_user_id", "o":"user_id" },
-		{ "s":"find_videos_by_campaign_id", "o":"campaign_id" },
-		{ "s":"find_videos_by_text", "o":"text" },
-		{ "s":"find_modified_videos", "o":"from_date" },
-		{ "s":"find_playlists_by_ids", "o":"playlist_ids" },
-		{ "s":"find_playlist_by_reference_id", "o":"reference_id" },
-		{ "s":"find_playlists_by_reference_ids", "o":"reference_ids" },
-		{ "s":"search_videos", "o":"all" }
+		{ "s" : "find_all_videos", "o" : false },
+		{ "s" : "find_video_by_id", "o" : "video_id" },
+		{ "s" : "find_video_by_id_unfiltered", "o" : "video_id" },
+		{ "s" : "find_videos_by_ids", "o" : "video_ids" },
+		{ "s" : "find_videos_by_ids_unfiltered", "o" : "video_ids" },
+		{ "s" : "find_video_by_reference_id", "o" : "reference_id" },
+		{ "s" : "find_video_by_reference_id_unfiltered", "o" : "reference_id" },
+		{ "s" : "find_video_by_reference_ids", "o" : "reference_ids" },
+		{ "s" : "find_video_by_reference_ids_unfiltered", "o" : "reference_ids" },
+		{ "s" : "find_videos_by_campaign_id", "o" : "campaign_id" },
+		{ "s" : "find_videos_by_tags", "o" : "or_tags" },
+		{ "s" : "find_videos_by_text", "o" : "text" },
+		{ "s" : "find_videos_by_user_id", "o" : "user_id" },
+		{ "s" : "find_related_videos", "o" : "video_id" },
+		{ "s" : "find_modified_videos", "o" : "from_date" },
+		{ "s" : "find_all_playlists", "o" : false },
+		{ "s" : "find_playlist_by_id", "o" : "playlist_id" },
+		{ "s" : "find_playlists_by_ids", "o" : "playlist_ids" },
+		{ "s" : "find_playlist_by_reference_id", "o" : "reference_id" },
+		{ "s" : "find_playlists_by_reference_ids", "o" : "reference_ids" },
+		{ "s" : "find_playlists_for_player_id", "o" : "player_id" },
+		{ "s" : "search_videos", "o" : "all" }
 	];
 
 	/**
