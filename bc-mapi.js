@@ -8,8 +8,8 @@
  *	 Source: http://github.com/brightcoveos/
  *
  * AUTHORS:
- *	 Brian Franklin, Professional Services Engineer, Brightcove
- *	 Matthew Congrove, Professional Services Engineer, Brightcove
+ *	 Brian Franklin <bfranklin@brightcove.com>
+ *	 Matthew Congrove <mcongrove@brightcove.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this
  * software and associated documentation files (the "Software"), to deal in the Software
