@@ -33,117 +33,122 @@ var BCMAPI = new function () {
 	this.callback = "BCMAPI.flush";
 	this.url = "http://api.brightcove.com/services/library";
 	this.calls = [
-		{ "s" : "find_all_videos", "o" : false },
-		{ "s" : "find_video_by_id", "o" : "video_id" },
-		{ "s" : "find_video_by_id_unfiltered", "o" : "video_id" },
-		{ "s" : "find_videos_by_ids", "o" : "video_ids" },
-		{ "s" : "find_videos_by_ids_unfiltered", "o" : "video_ids" },
-		{ "s" : "find_video_by_reference_id", "o" : "reference_id" },
-		{ "s" : "find_video_by_reference_id_unfiltered", "o" : "reference_id" },
-		{ "s" : "find_video_by_reference_ids", "o" : "reference_ids" },
-		{ "s" : "find_video_by_reference_ids_unfiltered", "o" : "reference_ids" },
-		{ "s" : "find_videos_by_campaign_id", "o" : "campaign_id" },
-		{ "s" : "find_videos_by_tags", "o" : "or_tags" },
-		{ "s" : "find_videos_by_text", "o" : "text" },
-		{ "s" : "find_videos_by_user_id", "o" : "user_id" },
-		{ "s" : "find_modified_videos", "o" : "from_date" },
-		{ "s" : "find_related_videos", "o" : "video_id" },
-		{ "s" : "find_all_playlists", "o" : false },
-		{ "s" : "find_playlist_by_id", "o" : "playlist_id" },
-		{ "s" : "find_playlists_by_ids", "o" : "playlist_ids" },
-		{ "s" : "find_playlist_by_reference_id", "o" : "reference_id" },
-		{ "s" : "find_playlists_by_reference_ids", "o" : "reference_ids" },
-		{ "s" : "find_playlists_for_player_id", "o" : "player_id" },
-		{ "s" : "search_videos", "o" : "all" }
+		{ "command" : "find_all_videos", "default" : false },
+		{ "command" : "find_video_by_id", "default" : "video_id" },
+		{ "command" : "find_video_by_id_unfiltered", "default" : "video_id" },
+		{ "command" : "find_videos_by_ids", "default" : "video_ids" },
+		{ "command" : "find_videos_by_ids_unfiltered", "default" : "video_ids" },
+		{ "command" : "find_video_by_reference_id", "default" : "reference_id" },
+		{ "command" : "find_video_by_reference_id_unfiltered", "default" : "reference_id" },
+		{ "command" : "find_video_by_reference_ids", "default" : "reference_ids" },
+		{ "command" : "find_video_by_reference_ids_unfiltered", "default" : "reference_ids" },
+		{ "command" : "find_videos_by_campaign_id", "default" : "campaign_id" },
+		{ "command" : "find_videos_by_tags", "default" : "or_tags" },
+		{ "command" : "find_videos_by_text", "default" : "text" },
+		{ "command" : "find_videos_by_user_id", "default" : "user_id" },
+		{ "command" : "find_modified_videos", "default" : "from_date" },
+		{ "command" : "find_related_videos", "default" : "video_id" },
+		{ "command" : "find_all_playlists", "default" : false },
+		{ "command" : "find_playlist_by_id", "default" : "playlist_id" },
+		{ "command" : "find_playlists_by_ids", "default" : "playlist_ids" },
+		{ "command" : "find_playlist_by_reference_id", "default" : "reference_id" },
+		{ "command" : "find_playlists_by_reference_ids", "default" : "reference_ids" },
+		{ "command" : "find_playlists_for_player_id", "default" : "player_id" },
+		{ "command" : "search_videos", "default" : "all" }
 	];
 
 	/**
-	 * Create a script element and include the API result
+	 * Injects API calls into the head of a document
 	 * @since 0.1
-	 * @param string [s] A query string with no leading question mark
+	 * @param string [pQuery] The query string for the API call to inject
 	 * @return true
 	 */
-	this.inject = function (s) {
-		var e = document.createElement("script");
-		e.setAttribute("src", this.url + "?" + s);
-		e.setAttribute("type", "text/javascript");
-		document.getElementsByTagName("head")[0].appendChild(e);
+	this.inject = function (pQuery) {
+		var pElement = document.createElement("script");
+		pElement.setAttribute("src", this.url + "?" + pQuery);
+		pElement.setAttribute("type", "text/javascript");
+		document.getElementsByTagName("head")[0].appendChild(pElement);
+		
 		return true;
 	};
 
 	/**
-	 * Construct the API call
+	 * Performs an API query.
 	 * @since 1.0
-	 * @param string [s] A Brightcove API method
-	 * @param mixed [v] Either an object containing the API parameters to apply to the given command, or a single value which is applied to the command's default selector
+	 * @param string [pCommand] A Brightcove API method
+	 * @param mixed [pParams] Either an object containing the API parameters to apply to the given command, or a single value which is applied to the command's default selector
 	 * @return true
 	 */
-	this.find = function (s, v) {
-		v = v || null;
-		var o = null;
-		var q = "";
-		s = s.toLowerCase().replace(/(find_)|(_)|(get_)/g, "");
+	this.find = function (pCommand, pParams) {
+		pCommand = pCommand.toLowerCase().replace(/(find_)|(_)|(get_)/g, "");
+		pParams = pParams || null;
+		var pDefault = null;
+		var pQuery = "";
 
-		for (var z in this.calls) {
-			if (typeof this.calls[z].s == "undefined") { continue; }
-			if (s == this.calls[z].s.toLowerCase().replace(/(find_)|(_)|(get_)/g, "")) {
-				s = this.calls[z].s;
-				if (typeof this.calls[z].o != "undefined") {
-					o = this.calls[z].o;
+		for (var pCall in this.calls) {
+			if (typeof this.calls[pCall].command == "undefined") {
+				continue;
+			}
+			
+			if (pCommand == this.calls[pCall].command.toLowerCase().replace(/(find_)|(_)|(get_)/g, "")) {
+				pCommand = this.calls[pCall].command;
+				
+				if (typeof this.calls[pCall].pDefault != "undefined") {
+					pDefault = this.calls[pCall].pDefault;
 				}
+				
 				break;
 			}
 		}
 
-		q = "command=" + s;
+		pQuery = "command=" + pCommand;
 
-		if ((typeof v == "object") && v) {
-			for (var x in v) {
-				if (x == "selector") {
-					q += "&" + o + "=" + encodeURIComponent(v[x]);
+		if ((typeof pParams == "object") && pParams) {
+			for (var pParam in pParams) {
+				if (pParam == "selector") {
+					pQuery += "&" + pDefault + "=" + encodeURIComponent(pParams[pParam]);
 				} else {
-					q += "&" + x + "=" + encodeURIComponent(v[x]);
+					pQuery += "&" + pParam + "=" + encodeURIComponent(pParams[pParam]);
 				}
 			}
 
-			if (typeof v.callback != "string") {
-
-				q += "&callback=" + this.callback;
+			if (typeof pParams.callback != "string") {
+				pQuery += "&callback=" + this.callback;
 			}
 
-			if (typeof v.token != "string") {
-				q += "&token=" + this.token;
+			if (typeof pParams.token != "string") {
+				pQuery += "&token=" + this.token;
 			}
-		} else if (v) {
-			q += "&" + o + "=" + encodeURIComponent(v) + "&callback=" + this.callback;
-			q += "&token=" + this.token;
+		} else if (pParams) {
+			pQuery += "&" + pDefault + "=" + encodeURIComponent(pParams) + "&callback=" + this.callback;
+			pQuery += "&token=" + this.token;
 		} else {
-			q += "&token=" + this.token;
-			q += "&callback=" + this.callback;
+			pQuery += "&token=" + this.token;
+			pQuery += "&callback=" + this.callback;
 		}
 
-		this.inject(q);
+		this.inject(pQuery);
 
 		return true;
 	};
 
 	/**
-	 * Dummy method for search calls
+	 * Performs an API search query
 	 * @since 1.0
-	 * @param string [s] A Brightcove API method
-	 * @param mixed [v] Either an object containing the API parameters to apply to the given command, or a single value which is applied to the command's default selector
+	 * @param mixed [pParams] Either an object containing the API parameters to apply to the given command, or a single value which is applied to the command's default selector
 	 * @return true
 	 */
-	this.search = function (v) {
-		return this.find("search_videos", v);
+	this.search = function (pParams) {
+		return this.find("search_videos", pParams);
 	};
 
 	/**
 	 * Default callback which does nothing
 	 * @since 0.1
+	 * @param mixed [pData] The data returned from the API
 	 * @return true
 	 */
-	this.flush = function (s) {
+	this.flush = function (pData) {
 		return true;
 	};
 }();
