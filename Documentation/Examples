@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+<example>
+<name>
+	Basic Usage
+</name>
+<description>
+	<![CDATA[A basic example containing a query for all videos in an account.]]>
+</description>
+<code>
+<![CDATA[&lt;script src="bc-mapi.js" type="text/javascript"&gt;&lt;/script&gt;
+
+&lt;script type="text/javascript"&gt;
+
+	// Make a call to the API requesting content
+	// Note that a callback function is needed to handle the returned data
+	BCMAPI.find("find_all_videos", { "callback" : "handle" });
+	
+	// Our callback loops through the returned videos, alerting their names
+	function handle (pResponse) {
+		for (var pVideo in pResponse.items) {
+			alert(pVideo.name);
+		}
+	}
+
+&lt;/script&gt;]]>
+</code>
+</example>
+<example>
+<name>
+	Advanced Usage
+</name>
+<description>
+	<![CDATA[]]>
+</description>
+<code>
+<![CDATA[&lt;script src="bc-mapi.js" type="text/javascript"&gt;&lt;/script&gt;
+
+&lt;script type="text/javascript"&gt;
+
+	// Set the default token and handler for calls
+	BCMAPI.token = "TOKEN.GOES.HERE";
+	BCMAPI.callback = "MyClass.method";
+	
+	// Our call response will now be sent to MyClass.method
+	BCMAPI.find("find_all_videos");
+	
+	// With a token and callback function set, we can use find()'s params as a selector
+	BCMAPI.find("find_video_by_id", 1234567890);
+	
+	// You can also omit "find" from all API commands for efficiency
+	BCMAPI.find("video_by_id", 1234567890);
+
+&lt;/script&gt;]]>
+</description>
+</example>
+<root>
