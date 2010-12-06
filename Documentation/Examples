@@ -40,7 +40,7 @@
 
 	// Set the default token and handler for calls
 	BCMAPI.token = "TOKEN.GOES.HERE";
-	BCMAPI.callback = "MyClass.method";
+	BCMAPI.callback = "MyClass.myMethod";
 	
 	// Our call response will now be sent to MyClass.method
 	BCMAPI.find("find_all_videos");

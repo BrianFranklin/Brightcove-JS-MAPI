@@ -20,40 +20,7 @@
 				<type>Function</type>
 				<description>The function to execute upon API return</description>
 			</item>
-			<item>
-				<name>url</name>
-				<type>String</type>
-				<description>The Brightcove API URL</description>
-			</item>
-			<item>
-				<name>calls</name>
-				<type>Array</type>
-				<description>A list of supported API calls</description>
-			</item>
 		</properties>
-	</method>
-	<method>
-		<name>
-			inject
-		</name>
-		<summary>
-			<![CDATA[
-				<p>Injects API calls into the head of a document.</p>
-			]]>
-		</summary>
-		<arguments>
-			<item>
-				<name>pQuery</name>
-				<type>String</type>
-				<description>The query string for the API call to inject</description>
-			</item>
-		</arguments>
-		<return>
-			<item>
-				<type>true</type>
-				<description></description>
-			</item>
-		</return>
 	</method>
 	<method>
 		<name>
@@ -97,29 +64,6 @@
 				<name>pParams</name>
 				<type>mixed</type>
 				<description>Either an object containing the API parameters to apply to the given command, or a single value which is applied to the command's default selector</description>
-			</item>
-		</arguments>
-		<return>
-			<item>
-				<type>true</type>
-				<description></description>
-			</item>
-		</return>
-	</method>
-	<method>
-		<name>
-			flush
-		</name>
-		<summary>
-			<![CDATA[
-				<p>Default callback which does nothing.</p>
-			]]>
-		</summary>
-		<arguments>
-			<item>
-				<name>pData</name>
-				<type>Mixed</type>
-				<description>The data returned from the API</description>
 			</item>
 		</arguments>
 		<return>
