@@ -1,11 +1,10 @@
 /**
- * BC JAVASCRIPT MAPI WRAPPER 1.0 (30 NOVEMBER 2010)
- * A Brightcove JavaScript Media API Wrapper
+ * Brightcove JavaScript MAPI Wrapper 1.0 (30 NOVEMBER 2010)
  * (Formerly known as Kudos)
  *
  * REFERENCES:
  *	 Website: http://opensource.brightcove.com
- *	 Source: http://github.com/brightcoveos/
+ *	 Source: http://github.com/brightcoveos
  *
  * AUTHORS:
  *	 Brian Franklin <bfranklin@brightcove.com>
