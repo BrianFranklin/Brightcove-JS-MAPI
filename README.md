@@ -5,28 +5,13 @@ This project provides a starting point for integrating the Brightcove Media
 API into your application. It provides simple ways to interact with the
 API.
 
-Download
-========
+Compatibility Notice
+====================
 
-You can download the latest package at the
-[GitHub](http://github.com/brightcoveos/JavaScript-MAPI-Wrapper) page.
+Please note that the JavaScript MAPI Wrapper v1.0 is **not** compatible with any
+previous versions (when it was known as "Kudos"). The class name has been
+changed, numerous functions have been re-named, and methods have been
+updated to take advantage of Brightcove API changes.
 
-Latest Source
-=============
-
-Visit [GitHub](http://github.com/brightcoveos/JavaScript-MAPI-Wrapper) for the
-latest source code.
-
-Please note that there is no guarantee of code usability or stability.
-
-Support
-=======
-
-File Issues: [GitHub Issue Tracker](http://github.com/brightcoveos/JavaScript-MAPI-Wrapper/issues/)
-
-Request Support: [Support Forums](http://opensource.brightcove.com/forum/)
-
-Please note that Open Source @ Brightcove projects are **not** supported by
-Brightcove and all questions, comments or issues should be reported through
-the appropriate OS@B channels. Brightcove Customer Support will **not**
-assist you with any Open Source @ Brightcove projects or integrations.
+If you need assistance in determining what changes have been made, please
+send an e-mail to opensource@brightcove.com with your request.
