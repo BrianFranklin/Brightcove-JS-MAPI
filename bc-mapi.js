@@ -1,5 +1,5 @@
 /**
- * Brightcove JavaScript MAPI Wrapper 1.0 (30 NOVEMBER 2010)
+ * Brightcove JavaScript MAPI Wrapper 1.1 (2 FEBRUARY 2011)
  * (Formerly known as Kudos)
  *
  * REFERENCES:
@@ -11,7 +11,7 @@
  *	 Matthew Congrove <mcongrove@brightcove.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the “Software”),
+ * copy of this software and associated documentation files (the ÒSoftwareÓ),
  * to deal in the Software without restriction, including without limitation
  * the rights to use, copy, modify, alter, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to
@@ -41,28 +41,28 @@ var BCMAPI = new function () {
 	this.callback = "BCMAPI.flush";
 	this.url = "http://api.brightcove.com/services/library";
 	this.calls = [
-		{ "command" : "find_all_videos", "default" : false },
-		{ "command" : "find_video_by_id", "default" : "video_id" },
-		{ "command" : "find_video_by_id_unfiltered", "default" : "video_id" },
-		{ "command" : "find_videos_by_ids", "default" : "video_ids" },
-		{ "command" : "find_videos_by_ids_unfiltered", "default" : "video_ids" },
-		{ "command" : "find_video_by_reference_id", "default" : "reference_id" },
-		{ "command" : "find_video_by_reference_id_unfiltered", "default" : "reference_id" },
-		{ "command" : "find_video_by_reference_ids", "default" : "reference_ids" },
-		{ "command" : "find_video_by_reference_ids_unfiltered", "default" : "reference_ids" },
-		{ "command" : "find_videos_by_campaign_id", "default" : "campaign_id" },
-		{ "command" : "find_videos_by_tags", "default" : "or_tags" },
-		{ "command" : "find_videos_by_text", "default" : "text" },
-		{ "command" : "find_videos_by_user_id", "default" : "user_id" },
-		{ "command" : "find_modified_videos", "default" : "from_date" },
-		{ "command" : "find_related_videos", "default" : "video_id" },
-		{ "command" : "find_all_playlists", "default" : false },
-		{ "command" : "find_playlist_by_id", "default" : "playlist_id" },
-		{ "command" : "find_playlists_by_ids", "default" : "playlist_ids" },
-		{ "command" : "find_playlist_by_reference_id", "default" : "reference_id" },
-		{ "command" : "find_playlists_by_reference_ids", "default" : "reference_ids" },
-		{ "command" : "find_playlists_for_player_id", "default" : "player_id" },
-		{ "command" : "search_videos", "default" : "all" }
+		{ "command" : "find_all_videos", "def" : false },
+		{ "command" : "find_video_by_id", "def" : "video_id" },
+		{ "command" : "find_video_by_id_unfiltered", "def" : "video_id" },
+		{ "command" : "find_videos_by_ids", "def" : "video_ids" },
+		{ "command" : "find_videos_by_ids_unfiltered", "def" : "video_ids" },
+		{ "command" : "find_video_by_reference_id", "def" : "reference_id" },
+		{ "command" : "find_video_by_reference_id_unfiltered", "def" : "reference_id" },
+		{ "command" : "find_video_by_reference_ids", "def" : "reference_ids" },
+		{ "command" : "find_video_by_reference_ids_unfiltered", "def" : "reference_ids" },
+		{ "command" : "find_videos_by_campaign_id", "def" : "campaign_id" },
+		{ "command" : "find_videos_by_tags", "def" : "or_tags" },
+		{ "command" : "find_videos_by_text", "def" : "text" },
+		{ "command" : "find_videos_by_user_id", "def" : "user_id" },
+		{ "command" : "find_modified_videos", "def" : "from_date" },
+		{ "command" : "find_related_videos", "def" : "video_id" },
+		{ "command" : "find_all_playlists", "def" : false },
+		{ "command" : "find_playlist_by_id", "def" : "playlist_id" },
+		{ "command" : "find_playlists_by_ids", "def" : "playlist_ids" },
+		{ "command" : "find_playlist_by_reference_id", "def" : "reference_id" },
+		{ "command" : "find_playlists_by_reference_ids", "def" : "reference_ids" },
+		{ "command" : "find_playlists_for_player_id", "def" : "player_id" },
+		{ "command" : "search_videos", "def" : "all" }
 	];
 
 	/**
@@ -101,8 +101,8 @@ var BCMAPI = new function () {
 			if (pCommand == this.calls[pCall].command.toLowerCase().replace(/(find_)|(_)|(get_)/g, "")) {
 				pCommand = this.calls[pCall].command;
 				
-				if (typeof this.calls[pCall].pDefault != "undefined") {
-					pDefault = this.calls[pCall].pDefault;
+				if (typeof this.calls[pCall].def != "undefined") {
+					pDefault = this.calls[pCall].def;
 				}
 				
 				break;
