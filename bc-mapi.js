@@ -11,7 +11,7 @@
  *	 Matthew Congrove <mcongrove@brightcove.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the ñSoftwareî),
+ * copy of this software and associated documentation files (the ï¿½Softwareï¿½),
  * to deal in the Software without restriction, including without limitation
  * the rights to use, copy, modify, alter, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to
@@ -48,8 +48,8 @@ var BCMAPI = new function () {
 		{ "command" : "find_videos_by_ids_unfiltered", "def" : "video_ids" },
 		{ "command" : "find_video_by_reference_id", "def" : "reference_id" },
 		{ "command" : "find_video_by_reference_id_unfiltered", "def" : "reference_id" },
-		{ "command" : "find_video_by_reference_ids", "def" : "reference_ids" },
-		{ "command" : "find_video_by_reference_ids_unfiltered", "def" : "reference_ids" },
+		{ "command" : "find_videos_by_reference_ids", "def" : "reference_ids" },
+		{ "command" : "find_videos_by_reference_ids_unfiltered", "def" : "reference_ids" },
 		{ "command" : "find_videos_by_campaign_id", "def" : "campaign_id" },
 		{ "command" : "find_videos_by_tags", "def" : "or_tags" },
 		{ "command" : "find_videos_by_text", "def" : "text" },
