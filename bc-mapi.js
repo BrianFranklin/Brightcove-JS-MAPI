@@ -1,45 +1,24 @@
-/**
- * Brightcove JavaScript MAPI Wrapper 1.2 (16 FEBRUARY 2011)
- * (Formerly known as Kudos)
- *
- * REFERENCES:
- *	 Website: http://opensource.brightcove.com
- *	 Source: http://github.com/brightcoveos
- *
- * AUTHORS:
- *	 Brian Franklin <bfranklin@brightcove.com>
- *	 Matthew Congrove <mcongrove@brightcove.com>
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, alter, merge, publish, distribute,
- * sublicense, and/or sell copies of the Software, and to permit persons to
- * whom the Software is furnished to do so, subject to the following conditions:
- *   
- * 1. The permission granted herein does not extend to commercial use of
- * the Software by entities primarily engaged in providing online video and
- * related services.
- *  
- * 2. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT ANY WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, SUITABILITY, TITLE,
- * NONINFRINGEMENT, OR THAT THE SOFTWARE WILL BE ERROR FREE. IN NO EVENT
- * SHALL THE AUTHORS, CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
- * CLAIM, DAMAGES OR OTHER LIABILITY WHATSOEVER, WHETHER IN AN ACTION OF
- * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH
- * THE SOFTWARE OR THE USE, INABILITY TO USE, OR OTHER DEALINGS IN THE SOFTWARE.
- *  
- * 3. NONE OF THE AUTHORS, CONTRIBUTORS, NOR BRIGHTCOVE SHALL BE RESPONSIBLE
- * IN ANY MANNER FOR USE OF THE SOFTWARE.  THE SOFTWARE IS PROVIDED FOR YOUR
- * CONVENIENCE AND ANY USE IS SOLELY AT YOUR OWN RISK.  NO MAINTENANCE AND/OR
- * SUPPORT OF ANY KIND IS PROVIDED FOR THE SOFTWARE.
+/*
+ * Copyright 2012 Brian Franklin
+
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+
+ * http://www.apache.org/licenses/LICENSE-2.0
+
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 var BCMAPI = new function () {
 	this.token = "";
 	this.callback = "BCMAPI.flush";
 	this.url = "http://api.brightcove.com/services/library";
+	this.request = this.url;
 	this.calls = [
 		{ "command" : "find_all_videos", "def" : false },
 		{ "command" : "find_video_by_id", "def" : "video_id" },
@@ -73,7 +52,8 @@ var BCMAPI = new function () {
 	 */
 	this.inject = function (pQuery) {
 		var pElement = document.createElement("script");
-		pElement.setAttribute("src", this.url + "?" + pQuery);
+		this.request =  this.url + "?" + pQuery;
+		pElement.setAttribute("src", this.request);
 		pElement.setAttribute("type", "text/javascript");
 		document.getElementsByTagName("head")[0].appendChild(pElement);
 		
@@ -113,11 +93,20 @@ var BCMAPI = new function () {
 
 		if ((typeof pParams == "object") && pParams) {
 			for (var pParam in pParams) {
-				if (pParam == "selector") {
-					pQuery += "&" + pDefault + "=" + encodeURIComponent(pParams[pParam]);
-				} else {
-					pQuery += "&" + pParam + "=" + encodeURIComponent(pParams[pParam]);
-				}
+  			if (pParam == "any" || pParam == "all" || pParam == "none") {
+    			if (this.isArray(pParams[pParam])) {
+      			for (var idx in pParams[pParam]) {
+        			pQuery += "&" + pParam + "=" + encodeURIComponent(pParams[pParam][idx]);
+      			} 
+    			} else {
+            pQuery += "&" + pParam + "=" + encodeURIComponent(pParams[pParam]);        			
+          }
+  			}
+				if (pParam == "selector" && pParam !== "all") {    				
+    					pQuery += "&" + pDefault + "=" + encodeURIComponent(pParams[pParam]);
+    				} else {
+    					pQuery += "&" + pParam + "=" + encodeURIComponent(pParams[pParam]);
+    				}
 			}
 
 			if (typeof pParams.callback != "string") {
@@ -149,6 +138,16 @@ var BCMAPI = new function () {
 	this.search = function (pParams) {
 		return this.find("search_videos", pParams);
 	};
+	
+	/**
+	 * Determines if param member is an array
+	 * @since 1.1
+	 * @param mixed [o] The param member
+	 * @return boolean
+	 */
+	 this.isArray = function(o) {
+	   return Object.prototype.toString.call(o) === '[object Array]';
+	 }
 
 	/**
 	 * Default callback which does nothing

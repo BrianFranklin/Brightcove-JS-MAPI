@@ -8,7 +8,7 @@ API.
 Compatibility Notice
 ====================
 
-Please note that the JavaScript MAPI Wrapper v1.0 is **not** compatible with any
+Please note that the JavaScript MAPI Wrapper v1.0+ is **not** compatible with any
 previous versions (when it was known as "Kudos"). The class name has been
 changed, numerous functions have been re-named, and methods have been
 updated to take advantage of Brightcove API changes.
@@ -55,7 +55,26 @@ An advanced example containing a query for all videos in an account as well as i
 		BCMAPI.find("video_by_id", 1234567890);
 	</script>
 		
+Search Videos Usage
+===================
+An example containing a search_videos call with multiple search terms.
+
+	<script src="bc-mapi.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		// Set the default token and handler for calls
+		BCMAPI.token = "TOKEN.GOES.HERE";
+		BCMAPI.callback = "MyClass.myMethod";
+		// Set params
+		var params = {};
+		params.any = ["tag:sea","tag:fish"];
+		
+		// Our call response will now be sent to MyClass.method
+		BCMAPI.search(params);
+	</script>
+
 	
+
+
 Methods
 =======
 
@@ -71,6 +90,10 @@ The Media API wrapper class.
 - **callback** *Public - The function to execute upon API return*
 
 	Type:		Function
+	
+- **request** *Public - The full request that is executed (for debugging purposes)
+
+	Type:		String
 	
 	
 find
@@ -97,7 +120,7 @@ search
 ------
 Performs an API search query.
 		
-- **pParams** *Either an object containing the API parameters to apply to the given command, or a single value which is applied to the command's default selector*
+- **pParams** *Either an object containing the API parameters to apply to the given command, or a single value which is applied to the command's default selector; for "any", "all" or "none" arguments, use a string value for a single search term, or an array value for multiple search terms*
 	
 	Default:	
 	Type:		Mixed	
